@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUETConnect - Campus Delivery Network</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .bg-grid {
+            background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .dark .bg-grid {
+            background-image: radial-gradient(circle at 1px 1px, #1e293b 1px, transparent 0);
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-50 text-zinc-900 dark:bg-[#09090b] dark:text-zinc-100 transition-colors duration-300 antialiased">
+
+    <!-- Navbar Container -->
+    <nav id="navbar"></nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
+            <div class="absolute inset-0 bg-grid -z-10 opacity-40"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white dark:to-[#09090b] -z-10">
+            </div>
+
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+                <div
+                    class="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-sm font-semibold text-emerald-600 dark:text-emerald-400 mb-8 animate-fade-in">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    Join 500+ CUET Students
+                </div>
+
+                <h1
+                    class="mx-auto max-w-4xl font-outfit text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl">
+                    Campus Delivery, <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-600">Simpler
+                        Than Ever.</span>
+                </h1>
+
+                <p class="mx-auto mt-8 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+                    CUETConnect is the peer-to-peer delivery platform designed exclusively for CUETians. Save time, earn
+                    rewards, and help your peers.
+                </p>
+
+                <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="feed.html"
+                        class="w-full sm:w-auto rounded-full bg-emerald-500 px-8 py-4 text-lg font-bold text-white hover:bg-emerald-600 transition-all shadow-xl shadow-emerald-500/20 active:scale-95">
+                        Start Exploring
+                    </a>
+                    <a href="signup.html"
+                        class="w-full sm:w-auto rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 px-8 py-4 text-lg font-bold hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all active:scale-95">
+                        Join the Network
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="p-4">
+                        <div class="text-3xl font-bold font-outfit text-emerald-500">2.5k+</div>
+                        <div class="text-sm text-zinc-500 uppercase tracking-wider mt-1">Deliveries Done</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl font-bold font-outfit text-emerald-500">500+</div>
+                        <div class="text-sm text-zinc-500 uppercase tracking-wider mt-1">Active Users</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl font-bold font-outfit text-emerald-500">15m</div>
+                        <div class="text-sm text-zinc-500 uppercase tracking-wider mt-1">Avg. Response</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-3xl font-bold font-outfit text-emerald-500">৳25k+</div>
+                        <div class="text-sm text-zinc-500 uppercase tracking-wider mt-1">Rewards Distributed</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-24 bg-white dark:bg-zinc-900/30 border-y border-zinc-100 dark:border-zinc-800">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold font-outfit sm:text-4xl">How it Works</h2>
+                    <p class="mt-4 text-zinc-500">Simple steps to get your things delivered.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Feature 1 -->
+                    <div class="relative group">
+                        <div
+                            class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="plus-square" class="h-8 w-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Post a Request</h3>
+                        <p class="text-zinc-500">Need food from the cafeteria or medicine from the gate? Just post a
+                            request with your location and a small reward.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="relative group">
+                        <div
+                            class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="hand-metal" class="h-8 w-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Accepted by Peer</h3>
+                        <p class="text-zinc-500">A student nearby who is already at that location accepts your request.
+                            No professional delivery guys, just fellow students.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="relative group">
+                        <div
+                            class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="check-circle" class="h-8 w-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Safe Delivery</h3>
+                        <p class="text-zinc-500">Receive your items at your doorstep (hall/department) and pay the
+                            reward. Build your reputation in the community.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-zinc-100 dark:border-zinc-800">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-zinc-500 text-sm">
+            <p>&copy; 2026 CUETConnect. Built for CUETians with ❤️</p>
+        </div>
+    </footer>
+
+    <!-- Core Scripts -->
+    <script src="js/lib/db.js"></script>
+    <script src="js/lib/auth.js"></script>
+    <script src="js/components/ui.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script>
+        // Initialize Lucide Icons on this page specifically for any icons not in the navbar
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+
+</html>

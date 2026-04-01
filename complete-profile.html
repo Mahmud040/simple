@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Profile - CUETConnect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-50 dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 antialiased">
+
+    <nav id="navbar"></nav>
+
+    <div class="min-h-[calc(100vh-64px)] flex items-center justify-center p-4 py-12">
+        <div class="w-full max-w-md">
+            <div
+                class="bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl shadow-zinc-200/50 dark:shadow-none border border-zinc-200 dark:border-zinc-800 p-8 md:p-10">
+
+                <div class="text-center mb-8">
+                    <div
+                        class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500 text-white mb-4 shadow-lg shadow-emerald-500/20">
+                        <i data-lucide="user-check" class="h-6 w-6"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold font-outfit tracking-tight">Complete Your Profile</h1>
+                    <p class="text-zinc-500 mt-2">Add your Student ID to get started</p>
+                </div>
+
+                <form id="complete-profile-form" class="space-y-5">
+                    <div>
+                        <label for="studentId" class="block text-sm font-semibold mb-2 ml-1">Student ID</label>
+                        <input type="text" id="studentId" required placeholder="e.g., 1904001"
+                            class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all">
+                    </div>
+
+                    <button type="submit" id="save-btn"
+                        class="w-full flex items-center justify-center gap-2 bg-emerald-500 text-white py-4 rounded-xl font-bold hover:bg-emerald-600 active:scale-[0.98] transition-all shadow-xl shadow-emerald-500/20">
+                        <span>Save & Continue</span>
+                        <i data-lucide="arrow-right" class="h-5 w-5"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="js/lib/db.js"></script>
+    <script src="js/lib/auth.js"></script>
+    <script src="js/components/ui.js"></script>
+    <script src="js/components/navbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.Auth.getUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            if (user.studentId) {
+                window.location.href = 'feed.html';
+                return;
+            }
+        });
+
+        document.getElementById('complete-profile-form').onsubmit = (e) => {
+            e.preventDefault();
+            const studentId = document.getElementById('studentId').value.trim();
+
+            if (!studentId) {
+                window.UI.toast('Please enter your Student ID', 'error');
+                return;
+            }
+
+            const existing = window.DB.findUserByStudentId(studentId);
+            const user = window.Auth.getUser();
+            if (existing && existing.id !== user.id) {
+                window.UI.toast('Student ID already in use', 'error');
+                return;
+            }
+
+            window.UI.showLoading('save-btn', 'Saving...');
+
+            setTimeout(() => {
+                const updatedUser = { ...user, studentId };
+                localStorage.setItem(DB_KEYS.CURRENT_USER, JSON.stringify(updatedUser));
+
+                const users = window.DB.getUsers();
+                const idx = users.findIndex(u => u.id === user.id);
+                if (idx !== -1) {
+                    users[idx] = updatedUser;
+                    localStorage.setItem(DB_KEYS.USERS, JSON.stringify(users));
+                }
+
+                window.UI.toast('Profile completed!', 'success');
+                setTimeout(() => window.location.href = 'feed.html', 1000);
+            }, 800);
+        };
+    </script>
+</body>
+
+</html>
