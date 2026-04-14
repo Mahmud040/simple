@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BringIt — Data Flow Diagram</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            padding: 24px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 17px;
+            color: #2e7d32;
+            margin: 18px 0 8px;
+            letter-spacing: 0.5px;
+        }
+        .card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.08);
+            margin: 0 auto 24px;
+            max-width: 1250px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .legend {
+            display: flex;
+            gap: 28px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 8px 0 18px;
+            font-size: 13px;
+            color: #555;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        th {
+            background: #2e7d32;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        td {
+            padding: 9px 14px;
+            border: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        tr:nth-child(even) td { background: #f6faf6; }
+        .tag {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 4px;
+            padding: 1px 7px;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📦 BringIt — Data Flow Diagram (DFD)</h1>
+<p class="subtitle">Campus Delivery Request Platform &nbsp;|&nbsp; System Analysis Based on Source Code &amp; Use Case Diagram</p>
+
+<!-- ═══════════════════════════════════════════════
+     LEGEND
+════════════════════════════════════════════════ -->
+<div class="legend">
+    <div class="legend-item">
+        <svg width="38" height="28">
+            <rect x="1" y="1" width="36" height="26" fill="white" stroke="#333" stroke-width="2.5"/>
+            <rect x="4" y="4" width="30" height="20" fill="none" stroke="#333" stroke-width="0.8"/>
+        </svg>
+        External Entity
+    </div>
+    <div class="legend-item">
+        <svg width="60" height="30">
+            <ellipse cx="30" cy="15" rx="29" ry="14" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+        </svg>
+        Process
+    </div>
+    <div class="legend-item">
+        <svg width="90" height="28">
+            <defs>
+                <marker id="la" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0,8 3,0 6" fill="#0d47a1"/>
+                </marker>
+            </defs>
+            <line x1="0" y1="8" x2="90" y2="8" stroke="#0d47a1" stroke-width="2"/>
+            <line x1="0" y1="22" x2="90" y2="22" stroke="#0d47a1" stroke-width="2"/>
+            <rect x="0" y="8" width="26" height="14" fill="#e3f2fd" stroke="#0d47a1" stroke-width="1.5"/>
+            <text x="13" y="20" text-anchor="middle" font-size="9" font-weight="bold" fill="#0d47a1">D#</text>
+            <rect x="26" y="8" width="64" height="14" fill="#e3f2fd"/>
+            <text x="58" y="20" text-anchor="middle" font-size="9" fill="#0d47a1">Store Name</text>
+        </svg>
+        Data Store
+    </div>
+    <div class="legend-item">
+        <svg width="60" height="16">
+            <defs>
+                <marker id="lb" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0,8 3,0 6" fill="#555"/>
+                </marker>
+            </defs>
+            <line x1="0" y1="8" x2="52" y2="8" stroke="#555" stroke-width="1.5" marker-end="url(#lb)"/>
+        </svg>
+        Data Flow
+    </div>
+    <div class="legend-item">
+        <svg width="60" height="16">
+            <defs>
+                <marker id="lc" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                    <polygon points="0 0,8 3,0 6" fill="#aaa"/>
+                </marker>
+            </defs>
+            <line x1="0" y1="8" x2="52" y2="8" stroke="#aaa" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#lc)"/>
+        </svg>
+        &lt;&lt;include&gt;&gt;
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     LEVEL 0 — CONTEXT DIAGRAM
+════════════════════════════════════════════════ -->
+<h2>Level 0 — Context Diagram</h2>
+<div class="card">
+<svg width="100%" viewBox="0 0 880 300" style="display:block;margin:0 auto;max-height:320px;">
+    <defs>
+        <marker id="a0" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0,9 3.5,0 7" fill="#444"/>
+        </marker>
+    </defs>
+
+    <!-- BringIt System process -->
+    <ellipse cx="440" cy="150" rx="155" ry="90" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2.5"/>
+    <text x="440" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">0</text>
+    <text x="440" y="153" text-anchor="middle" font-size="18" font-weight="bold" fill="#1b5e20">BringIt</text>
+    <text x="440" y="173" text-anchor="middle" font-size="13" fill="#388e3c">Delivery System</text>
+
+    <!-- Requester entity -->
+    <rect x="22" y="110" width="120" height="70" fill="white" stroke="#333" stroke-width="2.5"/>
+    <rect x="26" y="114" width="112" height="62" fill="none" stroke="#333" stroke-width="0.8"/>
+    <text x="82" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Requester</text>
+
+    <!-- Deliverer entity -->
+    <rect x="738" y="110" width="120" height="70" fill="white" stroke="#333" stroke-width="2.5"/>
+    <rect x="742" y="114" width="112" height="62" fill="none" stroke="#333" stroke-width="0.8"/>
+    <text x="798" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">Deliverer</text>
+
+    <!-- Requester → System: Post / Track / Bookmark Request -->
+    <line x1="142" y1="135" x2="286" y2="128" stroke="#444" stroke-width="1.6" marker-end="url(#a0)"/>
+    <text x="212" y="118" text-anchor="middle" font-size="11" fill="#222">Post / Track / Bookmark Request</text>
+
+    <!-- System → Requester: Status / Details -->
+    <line x1="287" y1="160" x2="143" y2="167" stroke="#444" stroke-width="1.6" marker-end="url(#a0)"/>
+    <text x="212" y="183" text-anchor="middle" font-size="11" fill="#222">Status / Confirmation / Details</text>
+
+    <!-- Deliverer → System: Accept / Complete / Bookmark -->
+    <line x1="738" y1="135" x2="595" y2="128" stroke="#444" stroke-width="1.6" marker-end="url(#a0)"/>
+    <text x="668" y="118" text-anchor="middle" font-size="11" fill="#222">Accept / Complete / Bookmark Request</text>
+
+    <!-- System → Deliverer: Request List / Details -->
+    <line x1="594" y1="162" x2="737" y2="168" stroke="#444" stroke-width="1.6" marker-end="url(#a0)"/>
+    <text x="667" y="185" text-anchor="middle" font-size="11" fill="#222">Request List / Task Details</text>
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     LEVEL 1 — DECOMPOSED DFD
+════════════════════════════════════════════════ -->
+<h2>Level 1 — Decomposed DFD</h2>
+<div class="card">
+<svg width="1200" height="830" viewBox="0 0 1200 830" style="display:block;">
+    <defs>
+        <marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0,9 3.5,0 7" fill="#555"/>
+        </marker>
+        <marker id="ar-d" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0,9 3.5,0 7" fill="#aaa"/>
+        </marker>
+        <marker id="ar-b" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0,9 3.5,0 7" fill="#0d47a1"/>
+        </marker>
+    </defs>
+
+    <!-- ─── DATA STORES (bottom row) ─── -->
+    <!-- D1: Users Store -->
+    <line x1="14"  y1="716" x2="220" y2="716" stroke="#0d47a1" stroke-width="2"/>
+    <line x1="14"  y1="746" x2="220" y2="746" stroke="#0d47a1" stroke-width="2"/>
+    <rect x="14"   y="716" width="32"  height="30" fill="#dce8ff" stroke="#0d47a1" stroke-width="1.8"/>
+    <text x="30"   y="736" text-anchor="middle" font-size="10" font-weight="bold" fill="#0d47a1">D1</text>
+    <rect x="46"   y="716" width="174" height="30" fill="#e3f2fd"/>
+    <text x="133"  y="736" text-anchor="middle" font-size="12" fill="#0d47a1">Users Store</text>
+
+    <!-- D2: Requests Store -->
+    <line x1="268"  y1="716" x2="560" y2="716" stroke="#0d47a1" stroke-width="2"/>
+    <line x1="268"  y1="746" x2="560" y2="746" stroke="#0d47a1" stroke-width="2"/>
+    <rect x="268"   y="716" width="32"  height="30" fill="#dce8ff" stroke="#0d47a1" stroke-width="1.8"/>
+    <text x="284"   y="736" text-anchor="middle" font-size="10" font-weight="bold" fill="#0d47a1">D2</text>
+    <rect x="300"   y="716" width="260" height="30" fill="#e3f2fd"/>
+    <text x="415"   y="736" text-anchor="middle" font-size="12" fill="#0d47a1">Requests Store</text>
+
+    <!-- D3: Bookmarks Store -->
+    <line x1="608"  y1="716" x2="860" y2="716" stroke="#0d47a1" stroke-width="2"/>
+    <line x1="608"  y1="746" x2="860" y2="746" stroke="#0d47a1" stroke-width="2"/>
+    <rect x="608"   y="716" width="32"  height="30" fill="#dce8ff" stroke="#0d47a1" stroke-width="1.8"/>
+    <text x="624"   y="736" text-anchor="middle" font-size="10" font-weight="bold" fill="#0d47a1">D3</text>
+    <rect x="640"   y="716" width="220" height="30" fill="#e3f2fd"/>
+    <text x="750"   y="736" text-anchor="middle" font-size="12" fill="#0d47a1">Bookmarks Store</text>
+
+    <!-- D4: Session Store -->
+    <line x1="908"   y1="716" x2="1186" y2="716" stroke="#0d47a1" stroke-width="2"/>
+    <line x1="908"   y1="746" x2="1186" y2="746" stroke="#0d47a1" stroke-width="2"/>
+    <rect x="908"    y="716" width="32"  height="30" fill="#dce8ff" stroke="#0d47a1" stroke-width="1.8"/>
+    <text x="924"    y="736" text-anchor="middle" font-size="10" font-weight="bold" fill="#0d47a1">D4</text>
+    <rect x="940"    y="716" width="246" height="30" fill="#e3f2fd"/>
+    <text x="1047"   y="736" text-anchor="middle" font-size="12" fill="#0d47a1">Session Store</text>
+
+    <!-- ─── EXTERNAL ENTITIES ─── -->
+    <!-- Requester -->
+    <rect x="14"  y="318" width="120" height="62" fill="white" stroke="#333" stroke-width="2.5"/>
+    <rect x="18"  y="322" width="112" height="54" fill="none"  stroke="#333" stroke-width="0.8"/>
+    <text x="74"  y="353" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Requester</text>
+
+    <!-- Deliverer -->
+    <rect x="1066" y="318" width="120" height="62" fill="white" stroke="#333" stroke-width="2.5"/>
+    <rect x="1070" y="322" width="112" height="54" fill="none"  stroke="#333" stroke-width="0.8"/>
+    <text x="1126" y="353" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">Deliverer</text>
+
+    <!-- ─── PROCESSES ─── -->
+    <!-- P1: Manage Authentication (top centre) -->
+    <ellipse cx="600" cy="80" rx="120" ry="46" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="600" y="70"  text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">1.0</text>
+    <text x="600" y="84"  text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Manage</text>
+    <text x="600" y="100" text-anchor="middle" font-size="13" fill="#1b5e20">Authentication</text>
+
+    <!-- P2: Post Request (left-upper) -->
+    <ellipse cx="210" cy="210" rx="100" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="210" y="202" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">2.0</text>
+    <text x="210" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Post Request</text>
+
+    <!-- P3: Track Request (left-middle) -->
+    <ellipse cx="210" cy="378" rx="100" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="210" y="370" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">3.0</text>
+    <text x="210" y="386" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Track Request</text>
+
+    <!-- P4: Cancel Request (left-lower) -->
+    <ellipse cx="210" cy="545" rx="100" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="210" y="537" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">4.0</text>
+    <text x="210" y="553" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Cancel Request</text>
+
+    <!-- P5: Bookmark Request (centre) -->
+    <ellipse cx="600" cy="278" rx="108" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="600" y="270" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">5.0</text>
+    <text x="600" y="286" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Bookmark Request</text>
+
+    <!-- P6: View Details (centre-lower) -->
+    <ellipse cx="600" cy="495" rx="100" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="600" y="487" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">6.0</text>
+    <text x="600" y="503" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">View Details</text>
+
+    <!-- P7: Accept Request (right-upper) -->
+    <ellipse cx="990" cy="210" rx="104" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="990" y="202" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">7.0</text>
+    <text x="990" y="218" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Accept Request</text>
+
+    <!-- P8: Complete Request (right-lower) -->
+    <ellipse cx="990" cy="495" rx="108" ry="44" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
+    <text x="990" y="487" text-anchor="middle" font-size="10" font-weight="bold" fill="#1b5e20">8.0</text>
+    <text x="990" y="503" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">Complete Request</text>
+
+    <!-- ════════════════════════════════════════════
+         DATA FLOW ARROWS
+    ════════════════════════════════════════════ -->
+
+    <!-- ── Auth flows ── -->
+    <!-- Requester → P1: Login/Signup -->
+    <line x1="134" y1="325" x2="482" y2="102" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="278" y="196" text-anchor="middle" font-size="10" fill="#333">Login / Signup</text>
+
+    <!-- P1 → Requester: Auth confirmed -->
+    <line x1="485" y1="112" x2="136" y2="336" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="296" y="242" text-anchor="middle" font-size="10" fill="#333">Auth Token</text>
+
+    <!-- Deliverer → P1: Login/Signup -->
+    <line x1="1066" y1="325" x2="718" y2="102" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="912" y="196" text-anchor="middle" font-size="10" fill="#333">Login / Signup</text>
+
+    <!-- P1 → Deliverer: Auth confirmed -->
+    <line x1="715" y1="112" x2="1064" y2="336" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="906" y="242" text-anchor="middle" font-size="10" fill="#333">Auth Token</text>
+
+    <!-- P1 → D1 Users: save user -->
+    <line x1="517" y1="116" x2="175" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="308" y="432" text-anchor="middle" font-size="10" fill="#444">Save User</text>
+
+    <!-- D1 → P1: user record -->
+    <line x1="162" y1="715" x2="510" y2="123" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="290" y="400" text-anchor="middle" font-size="10" fill="#444">User Record</text>
+
+    <!-- P1 → D4 Session: session token -->
+    <line x1="672" y1="118" x2="1004" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="875" y="410" text-anchor="middle" font-size="10" fill="#444">Session Token</text>
+
+    <!-- ── Post Request flows ── -->
+    <!-- Requester → P2: request form data -->
+    <line x1="134" y1="330" x2="112" y2="240" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="58"  y="280" text-anchor="middle" font-size="10" fill="#333">Form Data</text>
+
+    <!-- P2 → D2 Requests: new request -->
+    <line x1="260" y1="245" x2="360" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="278" y="502" text-anchor="middle" font-size="10" fill="#444">New Request</text>
+
+    <!-- ── Track Request flows ── -->
+    <!-- Requester → P3: User ID -->
+    <line x1="134" y1="345" x2="112" y2="370" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="54"  y="353" text-anchor="middle" font-size="10" fill="#333">User ID</text>
+
+    <!-- P3 → Requester: status list -->
+    <line x1="112" y1="385" x2="134" y2="360" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="52"  y="378" text-anchor="middle" font-size="10" fill="#333">Status List</text>
+
+    <!-- P3 → D2: query requests -->
+    <line x1="264" y1="398" x2="365" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <!-- D2 → P3: request list -->
+    <line x1="375" y1="715" x2="268" y2="408" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="348" y="570" text-anchor="middle" font-size="10" fill="#444">Request List</text>
+
+    <!-- P3 → P4: include (dashed) -->
+    <line x1="210" y1="422" x2="210" y2="501" stroke="#aaa" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#ar-d)"/>
+    <text x="155" y="462" text-anchor="middle" font-size="10" fill="#888">&lt;&lt;include&gt;&gt;</text>
+
+    <!-- ── Cancel Request flows ── -->
+    <!-- P4 → D2: delete request -->
+    <line x1="258" y1="574" x2="386" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="288" y="657" text-anchor="middle" font-size="10" fill="#444">Delete Request</text>
+
+    <!-- ── Bookmark Request flows ── -->
+    <!-- Requester → P5: toggle bookmark -->
+    <line x1="134" y1="336" x2="494" y2="272" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="310" y="294" text-anchor="middle" font-size="10" fill="#333">Toggle Bookmark</text>
+
+    <!-- Deliverer → P5: toggle bookmark -->
+    <line x1="1066" y1="336" x2="706" y2="272" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="896" y="292" text-anchor="middle" font-size="10" fill="#333">Toggle Bookmark</text>
+
+    <!-- P5 → D3 Bookmarks: save bookmark -->
+    <line x1="646" y1="317" x2="726" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <!-- D3 → P5: bookmark status -->
+    <line x1="718" y1="715" x2="640" y2="322" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="706" y="518" text-anchor="middle" font-size="10" fill="#444">Bookmark Data</text>
+
+    <!-- ── View Details flows ── -->
+    <!-- Requester → P6: request ID -->
+    <line x1="134" y1="354" x2="502" y2="490" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="295" y="438" text-anchor="middle" font-size="10" fill="#333">Request ID</text>
+
+    <!-- P6 → Requester: request details -->
+    <line x1="503" y1="502" x2="135" y2="365" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="292" y="468" text-anchor="middle" font-size="10" fill="#333">Request Details</text>
+
+    <!-- Deliverer → P6: request ID -->
+    <line x1="1066" y1="354" x2="698" y2="490" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="905" y="438" text-anchor="middle" font-size="10" fill="#333">Request ID</text>
+
+    <!-- P6 → Deliverer: request details -->
+    <line x1="697" y1="503" x2="1065" y2="366" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="906" y="466" text-anchor="middle" font-size="10" fill="#333">Request Details</text>
+
+    <!-- P6 ↔ D2: fetch / return request data -->
+    <line x1="573" y1="538" x2="467" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="460" y1="715" x2="568" y2="540" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="503" y="636" text-anchor="middle" font-size="10" fill="#444">Request Data</text>
+
+    <!-- P6 ↔ D3: get bookmark status -->
+    <line x1="635" y1="535" x2="694" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="688" y1="715" x2="630" y2="538" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="690" y="642" text-anchor="middle" font-size="10" fill="#444">Bookmark Status</text>
+
+    <!-- ── Accept Request flows ── -->
+    <!-- Deliverer → P7: accept request (request ID) -->
+    <line x1="1066" y1="330" x2="1092" y2="250" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="1120" y="290" text-anchor="start" font-size="10" fill="#333">Request ID</text>
+
+    <!-- P7 → D2: status = accepted -->
+    <line x1="940" y1="248" x2="498" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="765" y="524" text-anchor="middle" font-size="10" fill="#444">Status: accepted</text>
+
+    <!-- P7 → P8: include (dashed) -->
+    <line x1="990" y1="254" x2="990" y2="451" stroke="#aaa" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#ar-d)"/>
+    <text x="1048" y="355" text-anchor="start" font-size="10" fill="#888">&lt;&lt;include&gt;&gt;</text>
+
+    <!-- ── Complete Request flows ── -->
+    <!-- Deliverer → P8: task ID -->
+    <line x1="1066" y1="358" x2="1096" y2="468" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="1118" y="415" text-anchor="start" font-size="10" fill="#333">Task ID</text>
+
+    <!-- P8 → D2: status = completed -->
+    <line x1="938" y1="532" x2="502" y2="715" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="765" y="648" text-anchor="middle" font-size="10" fill="#444">Status: completed</text>
+
+</svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     DATA DICTIONARY
+════════════════════════════════════════════════ -->
+<h2>Data Dictionary</h2>
+<div class="card">
+<table>
+    <thead>
+        <tr>
+            <th style="width:18%">Element</th>
+            <th style="width:14%">Type</th>
+            <th style="width:32%">Description</th>
+            <th style="width:36%">Data Fields / Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Requester</strong></td>
+            <td>External Entity</td>
+            <td>A campus student who needs an item picked up and delivered.</td>
+            <td>Posts requests, tracks own requests, cancels open requests, bookmarks requests, views details.</td>
+        </tr>
+        <tr>
+            <td><strong>Deliverer</strong></td>
+            <td>External Entity</td>
+            <td>A campus student who browses open requests and volunteers to deliver.</td>
+            <td>Accepts requests, marks them complete, bookmarks requests, views details.</td>
+        </tr>
+        <tr>
+            <td><strong>1.0 Manage Authentication</strong></td>
+            <td>Process</td>
+            <td>Handles user registration, login, and session management. Validates credentials and redirects unauthenticated users.</td>
+            <td>
+                Inputs: <span class="tag">email</span> <span class="tag">password</span> <span class="tag">name</span> <span class="tag">studentId</span><br>
+                Outputs: <span class="tag">authToken</span> <span class="tag">sessionData</span><br>
+                Source: <em>auth.js</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>2.0 Post Request</strong></td>
+            <td>Process</td>
+            <td>Multi-step form wizard for creating a new delivery request. Supports draft saving between steps.</td>
+            <td>
+                Inputs: <span class="tag">title</span> <span class="tag">description</span> <span class="tag">category</span> <span class="tag">reward</span> <span class="tag">pickupLocation</span> <span class="tag">dropoffLocation</span><br>
+                Outputs: saved request object<br>
+                Source: <em>create.js</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>3.0 Track Request</strong></td>
+            <td>Process</td>
+            <td>Shows the current user's posted requests with their live statuses (open / accepted / completed). Includes Accept-initiated cancel flow.</td>
+            <td>
+                Inputs: <span class="tag">userId</span><br>
+                Outputs: <span class="tag">requestList[]</span> filtered by user<br>
+                Source: <em>my-requests.js</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>4.0 Cancel Request</strong></td>
+            <td>Process</td>
+            <td>&lt;&lt;include&gt;&gt; from Track Request. Permanently deletes an open request posted by the requester.</td>
+            <td>
+                Inputs: <span class="tag">requestId</span><br>
+                Outputs: request removed from D2<br>
+                Source: <em>my-requests.js → handleDelete()</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>5.0 Bookmark Request</strong></td>
+            <td>Process</td>
+            <td>Toggles a bookmark on any request for the logged-in user. Used in both Feed and Details pages.</td>
+            <td>
+                Inputs: <span class="tag">userId</span> <span class="tag">requestId</span><br>
+                Outputs: <span class="tag">isBookmarked</span> (true/false)<br>
+                Source: <em>feed.js → handleBookmark(), details.js → handleBookmarkToggle()</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>6.0 View Details</strong></td>
+            <td>Process</td>
+            <td>Renders full information for a single request including status, locations, reward, bookmark state, and available actions.</td>
+            <td>
+                Inputs: <span class="tag">requestId</span> (URL param)<br>
+                Outputs: rendered request card + action buttons<br>
+                Source: <em>details.js</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>7.0 Accept Request</strong></td>
+            <td>Process</td>
+            <td>Atomically assigns an open request to the Deliverer, preventing race conditions. Validates the deliverer is not the original requester.</td>
+            <td>
+                Inputs: <span class="tag">requestId</span> <span class="tag">delivererId</span> <span class="tag">delivererName</span><br>
+                Outputs: request status → <span class="tag">accepted</span><br>
+                Source: <em>db.js → acceptRequest(), feed.js → handleAccept()</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>8.0 Complete Request</strong></td>
+            <td>Process</td>
+            <td>&lt;&lt;include&gt;&gt; from Accept Request. Marks a task as completed, updating the deliverer's leaderboard stats.</td>
+            <td>
+                Inputs: <span class="tag">requestId</span><br>
+                Outputs: request status → <span class="tag">completed</span><br>
+                Source: <em>my-requests.js → handleComplete()</em>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>D1: Users Store</strong></td>
+            <td>Data Store</td>
+            <td>Persistent store of all registered user accounts (localStorage key: <code>BringIt_users</code>).</td>
+            <td><span class="tag">id</span> <span class="tag">name</span> <span class="tag">email</span> <span class="tag">studentId</span> <span class="tag">password</span></td>
+        </tr>
+        <tr>
+            <td><strong>D2: Requests Store</strong></td>
+            <td>Data Store</td>
+            <td>All delivery requests in the system (localStorage key: <code>BringIt_requests</code>). Status lifecycle: <em>open → accepted → completed</em> (or deleted).</td>
+            <td><span class="tag">id</span> <span class="tag">title</span> <span class="tag">description</span> <span class="tag">category</span> <span class="tag">reward</span> <span class="tag">pickupLocation</span> <span class="tag">dropoffLocation</span> <span class="tag">postedBy</span> <span class="tag">postedByName</span> <span class="tag">postedAt</span> <span class="tag">status</span> <span class="tag">acceptedBy</span> <span class="tag">acceptedByName</span> <span class="tag">acceptedAt</span></td>
+        </tr>
+        <tr>
+            <td><strong>D3: Bookmarks Store</strong></td>
+            <td>Data Store</td>
+            <td>Junction table linking users to their bookmarked requests (localStorage key: <code>BringIt_bookmarks</code>).</td>
+            <td><span class="tag">userId</span> <span class="tag">requestId</span></td>
+        </tr>
+        <tr>
+            <td><strong>D4: Session Store</strong></td>
+            <td>Data Store</td>
+            <td>Holds the currently logged-in user's profile for the active browser session (localStorage key: <code>BringIt_session</code>).</td>
+            <td><span class="tag">id</span> <span class="tag">name</span> <span class="tag">email</span> <span class="tag">studentId</span></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<p style="text-align:center;color:#999;font-size:12px;margin-top:8px;padding-bottom:20px;">
+    Generated from source-code analysis of BringIt — auth.js, db.js, create.js, feed.js, details.js, my-requests.js, profile.js, leaderboard.js
+</p>
+
+</body>
+</html>
