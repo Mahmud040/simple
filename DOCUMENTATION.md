@@ -1,9 +1,9 @@
-# CUETConnect - Developer Documentation & Improvement Guide
+# BringIt - Developer Documentation & Improvement Guide
 
-Welcome to the CUETConnect developer documentation. This document outlines the current state of the application after its refactoring into a beginner-friendly, procedural JavaScript structure. It also serves as a roadmap for future code improvements and scaling.
+Welcome to the BringIt developer documentation. This document outlines the current state of the application after its refactoring into a beginner-friendly, procedural JavaScript structure. It also serves as a roadmap for future code improvements and scaling.
 
 ## 1. Project Overview
-CUETConnect is a peer-to-peer mock delivery platform. It is currently built as a **static, client-side only web application**. It does not have a real backend; instead, it uses the browser's `localStorage` to simulate database operations and user sessions.
+BringIt is a peer-to-peer mock delivery platform. It is currently built as a **static, client-side only web application**. It does not have a real backend; instead, it uses the browser's `localStorage` to simulate database operations and user sessions.
 
 ### Tech Stack (Current)
 *   **HTML5**: Multiple page structure (e.g., `index.html`, `feed.html`, `profile.html`).
@@ -51,12 +51,12 @@ The codebase is organized to separate concerns while remaining easy to understan
 Data is stored as stringified JSON in the browser's `localStorage`. Clearing browser data will reset the application.
 
 **Key `localStorage` items:**
-*   `cuetconnect_users`: Array of user objects (mock accounts).
-*   `cuetconnect_requests`: Array of request objects (deliveries).
-*   `cuetconnect_session`: The ID of the currently logged-in user.
-*   `cuetconnect_theme`: User preference for 'light' or 'dark' mode.
-*   `cuetconnect_draft`: Temporarily saved data when creating a request.
-*   `cuetconnect_bookmarks`: Array of request IDs the user has saved.
+*   `BringIt_users`: Array of user objects (mock accounts).
+*   `BringIt_requests`: Array of request objects (deliveries).
+*   `BringIt_session`: The ID of the currently logged-in user.
+*   `BringIt_theme`: User preference for 'light' or 'dark' mode.
+*   `BringIt_draft`: Temporarily saved data when creating a request.
+*   `BringIt_bookmarks`: Array of request IDs the user has saved.
 
 ---
 

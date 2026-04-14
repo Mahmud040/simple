@@ -1,11 +1,6 @@
-/*
- * auth.js - Simple Authentication Engine
- * This file manages user login, signup, and sessions.
- * It uses localStorage to remember who is logged in.
- */
 
 // Key for the current session
-const SESSION_KEY = 'cuetconnect_session';
+const SESSION_KEY = 'BringIt_session';
 
 /**
  * Get the currently logged in user
@@ -23,7 +18,7 @@ function getCurrentUser() {
  */
 function loginUser(email, password) {
     const user = window.DB.findUser(email);
-    
+
     if (user) {
         if (user.password === password) {
             // Save user to session (localStorage)
@@ -33,7 +28,7 @@ function loginUser(email, password) {
             return { success: false, message: 'Invalid password. Please try again.' };
         }
     }
-    
+
     return { success: false, message: 'User not found. Please sign up first.' };
 }
 
@@ -45,20 +40,20 @@ function signupUser(name, email, studentId, password) {
     if (window.DB.findUser(email)) {
         return { success: false, message: 'This email is already registered.' };
     }
-    
+
     // Check if student ID already exists
     if (window.DB.findUserByStudentId(studentId)) {
         return { success: false, message: 'This Student ID is already registered.' };
     }
-    
+
     // Save new user to "Database"
-    const newUser = window.DB.saveUser({ 
-        name: name, 
-        email: email, 
-        studentId: studentId, 
-        password: password 
+    const newUser = window.DB.saveUser({
+        name: name,
+        email: email,
+        studentId: studentId,
+        password: password
     });
-    
+
     // Log them in immediately
     localStorage.setItem(SESSION_KEY, JSON.stringify(newUser));
     return { success: true, user: newUser };

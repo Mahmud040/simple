@@ -1,8 +1,3 @@
-/**
- * ui.js - Simple UI Helpers
- * This file contains functions to help with the user interface,
- * like showing notifications (toasts) and formatting dates.
- */
 
 const UI = {
     /**
@@ -23,13 +18,13 @@ const UI = {
         const seconds = Math.floor((now - date) / 1000);
 
         if (seconds < 60) return 'Just now';
-        
+
         const minutes = Math.floor(seconds / 60);
         if (minutes < 60) return minutes + 'm ago';
-        
+
         const hours = Math.floor(minutes / 60);
         if (hours < 24) return hours + 'h ago';
-        
+
         return date.toLocaleDateString();
     },
 
@@ -63,7 +58,7 @@ const UI = {
 
         // Create the toast element
         const toast = document.createElement('div');
-        
+
         // Pick a color based on the type
         let bgColor = '#10b981'; // green for success
         if (type === 'error') bgColor = '#ef4444'; // red
@@ -100,7 +95,7 @@ const UI = {
     showLoading(buttonId, loadingText = 'Wait...') {
         const btn = document.getElementById(buttonId);
         if (!btn) return;
-        
+
         // Save the old content so we can put it back later
         btn.oldContent = btn.innerHTML;
         btn.disabled = true;
@@ -113,7 +108,7 @@ const UI = {
     hideLoading(buttonId) {
         const btn = document.getElementById(buttonId);
         if (!btn || !btn.oldContent) return;
-        
+
         btn.disabled = false;
         btn.innerHTML = btn.oldContent;
     },
@@ -122,7 +117,7 @@ const UI = {
      * Setup the initial theme (Dark or Light)
      */
     initTheme() {
-        const savedTheme = localStorage.getItem('cuetconnect_theme');
+        const savedTheme = localStorage.getItem('BringIt_theme');
         if (savedTheme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
@@ -135,7 +130,7 @@ const UI = {
      */
     toggleTheme() {
         const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('cuetconnect_theme', isDark ? 'dark' : 'light');
+        localStorage.setItem('BringIt_theme', isDark ? 'dark' : 'light');
         this.toast((isDark ? 'Dark' : 'Light') + ' mode enabled', 'info');
     }
 };
@@ -145,3 +140,4 @@ UI.initTheme();
 
 // Make it global
 window.UI = UI;
+

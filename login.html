@@ -4,8 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CUETConnect</title>
+    <title>Login - BringIt</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        };
+    </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
@@ -36,7 +41,7 @@
                         <i data-lucide="zap" class="h-6 w-6"></i>
                     </div>
                     <h1 class="text-3xl font-bold font-outfit tracking-tight">Welcome Back</h1>
-                    <p class="text-zinc-500 mt-2">Log in to your CUETConnect account</p>
+                    <p class="text-zinc-500 mt-2">Log in to your BringIt account</p>
                 </div>
 
                 <form id="login-form" class="space-y-5">
@@ -90,7 +95,7 @@
 
             window.UI.showLoading('login-btn', 'Authenticating...');
 
-            // Simulating a delay for realism
+            
             setTimeout(() => {
                 const result = window.Auth.login(email, password);
 

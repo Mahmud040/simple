@@ -1,11 +1,3 @@
-/**
- * profile.js - Profile Page
- * This file handles showing the user's stats and letting them change their name.
- */
-
-/**
- * Initialize the page
- */
 function initProfilePage() {
     window.Auth.requireAuth();
     showUserProfile();
@@ -19,7 +11,6 @@ function showUserProfile() {
     const allRequests = window.DB.getRequests();
 
     // 1. Calculate Stats
-    // Count deliveries this user COMPLETED as a courier
     const completedTasks = allRequests.filter(req => req.acceptedBy === user.id && req.status === 'completed');
 
     // Sum up the earned money
@@ -28,16 +19,16 @@ function showUserProfile() {
         totalEarned += Number(req.reward);
     }
 
-    // Count ACTIVE posts (requests the user posted that are still open)
+    // Count ACTIVE posts 
     const activePosts = allRequests.filter(req => req.postedBy === user.id && req.status === 'open');
 
-    // 2. Put stats on the screen
+    // 2. Put stats 
     document.getElementById('stat-completed').textContent = completedTasks.length;
     document.getElementById('stat-earned').textContent = '৳' + totalEarned;
     document.getElementById('stat-active').textContent = activePosts.length;
-    document.getElementById('stat-rating').textContent = '4.9'; // Mock rating
+    document.getElementById('stat-rating').textContent = '4.9'; 
 
-    // 3. Put user info on the screen
+    // 3. Put user info 
     document.getElementById('profile-name-display').textContent = user.name;
     document.getElementById('profile-email-display').textContent = user.email;
     document.getElementById('profile-initial').textContent = user.name.charAt(0);
@@ -78,15 +69,15 @@ function saveProfileChanges() {
         studentId: newStudentId
     });
 
-    // 1. Update the session (who is currently logged in)
-    localStorage.setItem('cuetconnect_session', JSON.stringify(updatedUser));
+    // 1. Update the session 
+    localStorage.setItem('BringIt_session', JSON.stringify(updatedUser));
 
     // 2. Update the user in the "users" list (the mock database)
     const allUsers = window.DB.getUsers();
     const userIndex = allUsers.findIndex(u => u.id === currentUser.id);
     if (userIndex !== -1) {
         allUsers[userIndex] = updatedUser;
-        localStorage.setItem('cuetconnect_users', JSON.stringify(allUsers));
+        localStorage.setItem('BringIt_users', JSON.stringify(allUsers));
     }
 
     // 3. Sync the new name across all their requests

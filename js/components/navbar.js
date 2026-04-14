@@ -1,27 +1,23 @@
-/**
- * navbar.js - Navigation Bar Logic
- * This file creates the menu at the top of every page.
- */
 
 function renderNavbar() {
-    const navContainer = document.getElementById('navbar');
-    if (!navContainer) return;
+  const navContainer = document.getElementById('navbar');
+  if (!navContainer) return;
 
-    // Get current user to see if they are logged in
-    const user = window.Auth.getUser();
+  // Get current user to see if they are logged in
+  const user = window.Auth.getUser();
 
-    // Style the navbar container
-    navContainer.className = "sticky top-0 z-50 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#09090b]";
+  // Style the navbar container
+  navContainer.className = "sticky top-0 z-50 w-full border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#09090b]";
 
-    // Build the HTML for the navbar
-    navContainer.innerHTML = `
+  // Build the HTML for the navbar
+  navContainer.innerHTML = `
       <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <!-- Logo -->
         <a href="index.html" class="flex items-center gap-2">
           <div class="bg-emerald-500 text-white p-1.5 rounded-lg">
             <i data-lucide="zap" class="h-5 w-5"></i>
           </div>
-          <span class="text-xl font-bold dark:text-white">CUETConnect</span>
+          <span class="text-xl font-bold dark:text-white">BringIt</span>
         </a>
 
         <!-- Desktop Links -->
@@ -60,27 +56,27 @@ function renderNavbar() {
       </div>
     `;
 
-    // Setup Theme Toggle click
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) {
-        themeBtn.onclick = () => {
-            window.UI.toggleTheme();
-            renderNavbar(); // Refresh navbar to update theme icon
-        };
-    }
+  // Setup Theme Toggle click
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) {
+    themeBtn.onclick = () => {
+      window.UI.toggleTheme();
+      renderNavbar(); // Refresh navbar to update theme icon
+    };
+  }
 
-    // Setup Logout click
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.onclick = () => {
-            if (confirm('Are you sure you want to logout?')) {
-                window.Auth.logout();
-            }
-        };
-    }
+  // Setup Logout click
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.onclick = () => {
+      if (confirm('Are you sure you want to logout?')) {
+        window.Auth.logout();
+      }
+    };
+  }
 
-    // Refresh icons after inserting HTML
-    window.UI.refreshIcons();
+  // Refresh icons after inserting HTML
+  window.UI.refreshIcons();
 }
 
 // Run the function when the page is ready

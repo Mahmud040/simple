@@ -1,7 +1,3 @@
-/**
- * create.js - Create Request Page
- * This file handles the multi-step form for posting a new delivery request.
- */
 
 // Global variables to store form data and current step
 let currentStep = 1;
@@ -66,9 +62,7 @@ function setupFormListeners() {
     });
 }
 
-/**
- * Move to the next step
- */
+
 function nextStep() {
     // Basic validation
     if (currentStep === 1 && !formData.category) {
@@ -93,9 +87,7 @@ function nextStep() {
     }
 }
 
-/**
- * Go back to the previous step
- */
+
 function prevStep() {
     if (currentStep > 1) {
         currentStep--;
@@ -104,9 +96,7 @@ function prevStep() {
     }
 }
 
-/**
- * Show/Hide sections based on current step
- */
+
 function updateStepVisibility() {
     // Hide all steps first
     document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
@@ -168,7 +158,7 @@ function submitRequest() {
     window.DB.saveRequest(formData);
 
     // Clear the draft
-    localStorage.removeItem('cuetconnect_draft');
+    localStorage.removeItem('BringIt_draft');
 
     setTimeout(() => {
         window.UI.toast('Request posted successfully!', 'success');
@@ -180,14 +170,14 @@ function submitRequest() {
  * Helper: Save draft to localStorage
  */
 function saveDraft() {
-    localStorage.setItem('cuetconnect_draft', JSON.stringify(formData));
+    localStorage.setItem('BringIt_draft', JSON.stringify(formData));
 }
 
 /**
  * Helper: Load draft from localStorage
  */
 function loadSavedDraft() {
-    const saved = localStorage.getItem('cuetconnect_draft');
+    const saved = localStorage.getItem('BringIt_draft');
     if (saved) {
         formData = JSON.parse(saved);
 

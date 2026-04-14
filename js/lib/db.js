@@ -1,13 +1,8 @@
-/**
- * db.js - Simple Database using localStorage
- * This file handles all the data for our application (Users and Requests).
- * It uses 'localStorage' which means the data stays in your browser even if you refresh.
- */
 
 // Keys used to store data in localStorage
-const USERS_KEY = 'cuetconnect_users';
-const REQUESTS_KEY = 'cuetconnect_requests';
-const BOOKMARKS_KEY = 'cuetconnect_bookmarks';
+const USERS_KEY = 'BringIt_users';
+const REQUESTS_KEY = 'BringIt_requests';
+const BOOKMARKS_KEY = 'BringIt_bookmarks';
 
 // Initial "Seed" Data - These will show up the first time you open the app
 const INITIAL_DATA = [
@@ -127,7 +122,7 @@ function updateRequestStatus(requestId, updates) {
 }
 
 /**
- * Accept a request (Atomic operation to avoid double-acceptance)
+ * Accept a request 
  */
 function acceptRequest(requestId, userId, userName) {
     const requests = getAllRequests();
@@ -227,11 +222,11 @@ function toggleBookmark(userId, requestId) {
     if (index === -1) {
         allBookmarks.push({ userId, requestId });
         localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(allBookmarks));
-        return true; // Added
+        return true; 
     } else {
         allBookmarks.splice(index, 1);
         localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(allBookmarks));
-        return false; // Removed
+        return false; 
     }
 }
 
